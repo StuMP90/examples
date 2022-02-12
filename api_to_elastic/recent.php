@@ -1,9 +1,13 @@
 <?php
 require_once './getmydata.php';
 // Get data for last 3 months (allow 7 days for averaging)
-$start_timestamp = time() - (97 * 24 * 60 * 60);
-$usa_data = getUsaData($start_timestamp);
-$england_data = getEnglandData($start_timestamp);
+$usa_start_timestamp = time() - (97 * 24 * 60 * 60);
+$usa_data = getUsaData($usa_start_timestamp);
+
+// Finish England data 5 days ago due to data completion delays
+$england_start_timestamp = time() - (102 * 24 * 60 * 60);
+$england_end_timestamp = time() - (5 * 24 * 60 * 60);
+$england_data = getEnglandData($england_start_timestamp,$england_end_timestamp);
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +34,7 @@ $england_data = getEnglandData($start_timestamp);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Cases', 'Deaths'],
+                  ['Date', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($usa_data as $key => $val) {
                     echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
@@ -58,7 +62,7 @@ $england_data = getEnglandData($start_timestamp);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Cases', 'Deaths'],
+                  ['Date', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($england_data as $key => $val) {
                     echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");

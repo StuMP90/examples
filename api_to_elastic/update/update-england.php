@@ -30,7 +30,7 @@ try {
     
     foreach ($jshistorydec['data'] as $histkey => $histval) {
         $pieces = explode('-',$histval['date']);
-        $tlktme = mktime(0,0,0,$pieces[2],$pieces[1],$pieces[0]);
+        $tlktme = mktime(0,0,0,$pieces[1],$pieces[2],$pieces[0]);
         $tlkdte = date("Y/m/d",$tlktme);
         $combarr[$tlktme]['dtestr'] = $tlkdte;
         

@@ -2,7 +2,10 @@
 require_once './getmydata.php';
 // Get data since April 2020 (allow 7 days for averaging)
 $usa_data = getUsaData(1585094400);
-$england_data = getEnglandData(1585094400);
+
+// Finish England data 5 days ago due to data completion delays
+$england_end_timestamp = time() - (5 * 24 * 60 * 60);
+$england_data = getEnglandData(1585094400,$england_end_timestamp);
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,7 +32,7 @@ $england_data = getEnglandData(1585094400);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Cases', 'Deaths'],
+                  ['Date', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($usa_data as $key => $val) {
                     echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
@@ -57,7 +60,7 @@ $england_data = getEnglandData(1585094400);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Cases', 'Deaths'],
+                  ['Date', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($england_data as $key => $val) {
                     echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
