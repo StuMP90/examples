@@ -52,10 +52,10 @@ function getUsaData ($startts = 0, $endts = 2147483646) {
                 $avgcaseshist[] = $val['_source']['daycases'];
                 $avgdeathhist[] = $val['_source']['daydeaths'];
                 if(count($avgcaseshist)) {
-                    $averagecases = array_sum($avgcaseshist)/count($avgcaseshist);
+                    $averagecases = round(array_sum($avgcaseshist)/count($avgcaseshist),0);
                 }
                 if(count($avgdeathhist)) {
-                    $averagedeaths = array_sum($avgdeathhist)/count($avgdeathhist);
+                    $averagedeaths = round(array_sum($avgdeathhist)/count($avgdeathhist),0);
                 }
 
                 $return_data[$val['_source']['dtetms']] = array(
@@ -141,11 +141,6 @@ function getEnglandData ($startts = 0, $endts = 2147483646) {
             $avgdeathhist = array();
             $avgadmithist = array();
             foreach($result['hits']['hits'] as $key => $val) {
-                // The UK data has some unusual characteristics and data points, so we need to clean it up a bit for display purposes...
-                // Remove erroneuos data points
-                if ($val['_source']['daycases'] > 2000000) {
-                    continue;
-                }
                 // Calculate 7 day averages
                 if (count($avgcaseshist) > 6) { // All arrays should be the same length
                     array_shift($avgcaseshist);
@@ -156,13 +151,13 @@ function getEnglandData ($startts = 0, $endts = 2147483646) {
                 $avgdeathhist[] = $val['_source']['daydeaths'];
                 $avgadmithist[] = $val['_source']['dayadmits'];
                 if(count($avgcaseshist)) {
-                    $averagecases = array_sum($avgcaseshist) / count($avgcaseshist);
+                    $averagecases = round(array_sum($avgcaseshist) / count($avgcaseshist),0);
                 }
                 if(count($avgdeathhist)) {
-                    $averagedeaths = array_sum($avgdeathhist) / count($avgdeathhist);
+                    $averagedeaths = round(array_sum($avgdeathhist) / count($avgdeathhist),0);
                 }
                 if(count($avgadmithist)) {
-                    $averageadmits = array_sum($avgadmithist) / count($avgadmithist);
+                    $averageadmits = round(array_sum($avgadmithist) / count($avgadmithist),0);
                 }
 
                $return_data[$val['_source']['dtetms']] = array(

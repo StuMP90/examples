@@ -32,10 +32,10 @@ $england_data = getEnglandData(1585094400,$england_end_timestamp);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Avg Cases', 'Avg Deaths'],
+                  ['Date', 'Day Cases', 'Day Deaths', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($usa_data as $key => $val) {
-                    echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
+                    echo("['" . $val['dtestr']  . "'," . $val['daycases']  . "," . $val['daydeaths']  . "," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
                 }
 ?>
                 ]);
@@ -48,6 +48,13 @@ $england_data = getEnglandData(1585094400,$england_end_timestamp);
                     legend: { position: 'top' },
                     curveType: 'function',
                     chartArea:{left: 100, right: 25, top: 50, bottom: 100, width:'auto',height:'auto'},
+                    series: {
+                        0: { lineWidth: 2 },
+                        1: { lineWidth: 2 },
+                        2: { lineWidth: 4 },
+                        3: { lineWidth: 4 },
+                    },
+                    colors: ['#B0E0E6', '#DB7093', '#4682B4', '#FF6347']
                 };
 
                 // Instantiate and draw the chart.
@@ -60,10 +67,10 @@ $england_data = getEnglandData(1585094400,$england_end_timestamp);
 
                 // Create the data table.
                 var data = google.visualization.arrayToDataTable([
-                  ['Date', 'Avg Cases', 'Avg Deaths'],
+                  ['Date', 'Day Cases', 'Day Deaths', 'Avg Cases', 'Avg Deaths'],
 <?php
                 foreach($england_data as $key => $val) {
-                    echo("['" . $val['dtestr']  . "'," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
+                    echo("['" . $val['dtestr']  . "'," . $val['daycases']  . "," . $val['daydeaths']  . "," . $val['avgcases']  . "," . $val['avgdeaths']  . "],");
                 }
 ?>
                 ]);
@@ -76,6 +83,13 @@ $england_data = getEnglandData(1585094400,$england_end_timestamp);
                     legend: { position: 'top' },
                     curveType: 'function',
                     chartArea:{left: 100, right: 25, top: 50, bottom: 100, width:'auto',height:'auto'},
+                    series: {
+                        0: { lineWidth: 2 },
+                        1: { lineWidth: 2 },
+                        2: { lineWidth: 4 },
+                        3: { lineWidth: 4 },
+                    },
+                    colors: ['#B0E0E6', '#DB7093', '#4682B4', '#FF6347']
                 };
 
                 // Instantiate and draw the chart.

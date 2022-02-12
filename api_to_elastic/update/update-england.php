@@ -8,7 +8,7 @@ $client = Elasticsearch\ClientBuilder::create()->setHosts($ela_hosts)->build();
 
 //** ENGLAND History */
 try {
-    // Disease.sh data source for USA history
+    // UK Gov data source for England history
     $url = 'https://api.coronavirus.data.gov.uk/v1/data?filters=areaType=nation' . ";" . 'areaName=england&structure={%22date%22:%22date%22,%22newCases%22:%22newCasesByPublishDate%22,%22newDeaths%22:%22newDeaths28DaysByDeathDate%22,%22newAdmissions%22:%22newAdmissions%22,%22covidOccupiedMVBeds%22:%22covidOccupiedMVBeds%22,%22hospitalCases%22:%22hospitalCases%22}';
 
     // Use CURL to fetch data from API
