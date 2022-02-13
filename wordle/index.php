@@ -28,41 +28,13 @@ switch ($safe_langsel) {
         $seluk = "";
         $selusa = "";
 }
-if (isset($_POST['incletters'])) {
-    $safe_incletters = preg_replace('/[^a-z]/','',$_POST['incletters']);
-} else {
-    $safe_incletters = "";
-}
-if (isset($_POST['excletters'])) {
-    $safe_excletters = preg_replace('/[^a-z]/','',$_POST['excletters']);
-} else {
-    $safe_excletters = "";
-}
-if (isset($_POST['letter1'])) {
-    $safe_letter1 = preg_replace('/[^a-z]/','',$_POST['letter1']);
-} else {
-    $safe_letter1 = "";
-}
-if (isset($_POST['letter2'])) {
-    $safe_letter2 = preg_replace('/[^a-z]/','',$_POST['letter2']);
-} else {
-    $safe_letter2 = "";
-}
-if (isset($_POST['letter3'])) {
-    $safe_letter3 = preg_replace('/[^a-z]/','',$_POST['letter3']);
-} else {
-    $safe_letter3 = "";
-}
-if (isset($_POST['letter4'])) {
-    $safe_letter4 = preg_replace('/[^a-z]/','',$_POST['letter4']);
-} else {
-    $safe_letter4 = "";
-}
-if (isset($_POST['letter5'])) {
-    $safe_letter5 = preg_replace('/[^a-z]/','',$_POST['letter5']);
-} else {
-    $safe_letter5 = "";
-}
+$safe_incletters = preg_replace('/[^a-z]/','',$_POST['incletters'] ?? '');
+$safe_excletters = preg_replace('/[^a-z]/','',$_POST['excletters'] ?? '');
+$safe_letter1 = preg_replace('/[^a-z]/','',$_POST['letter1'] ?? '');
+$safe_letter2 = preg_replace('/[^a-z]/','',$_POST['letter2'] ?? '');
+$safe_letter3 = preg_replace('/[^a-z]/','',$_POST['letter3'] ?? '');
+$safe_letter4 = preg_replace('/[^a-z]/','',$_POST['letter4'] ?? '');
+$safe_letter5 = preg_replace('/[^a-z]/','',$_POST['letter5'] ?? '');
 $safe_wordlist = "";
 
 // Run search if any inputs are set
