@@ -35,6 +35,12 @@ $safe_letter2 = preg_replace('/[^a-z]/','',$_POST['letter2'] ?? '');
 $safe_letter3 = preg_replace('/[^a-z]/','',$_POST['letter3'] ?? '');
 $safe_letter4 = preg_replace('/[^a-z]/','',$_POST['letter4'] ?? '');
 $safe_letter5 = preg_replace('/[^a-z]/','',$_POST['letter5'] ?? '');
+
+$safe_bpletter1 = preg_replace('/[^a-z]/','',$_POST['bpletter1'] ?? '');
+$safe_bpletter2 = preg_replace('/[^a-z]/','',$_POST['bpletter2'] ?? '');
+$safe_bpletter3 = preg_replace('/[^a-z]/','',$_POST['bpletter3'] ?? '');
+$safe_bpletter4 = preg_replace('/[^a-z]/','',$_POST['bpletter4'] ?? '');
+$safe_bpletter5 = preg_replace('/[^a-z]/','',$_POST['bpletter5'] ?? '');
 $safe_wordlist = "";
 
 // Run search if any inputs are set
@@ -72,6 +78,23 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
                 $stmtstr .= " AND SUBSTRING(word,5,1) = :letter5";
             }
 
+            // Found letter bad position
+            if ($safe_bpletter1 != "") {
+                $stmtstr .= " AND NOT(SUBSTRING(word,1,1) = :bpletter1)";
+            }
+            if ($safe_bpletter2 != "") {
+                $stmtstr .= " AND NOT(SUBSTRING(word,2,1) = :bpletter2)";
+            }
+            if ($safe_bpletter3 != "") {
+                $stmtstr .= " AND NOT(SUBSTRING(word,3,1) = :bpletter3)";
+            }
+            if ($safe_bpletter4 != "") {
+                $stmtstr .= " AND NOT(SUBSTRING(word,4,1) = :bpletter4)";
+            }
+            if ($safe_bpletter5 != "") {
+                $stmtstr .= " AND NOT(SUBSTRING(word,5,1) = :bpletter5)";
+            }
+            
             // Included letters
             if ($safe_incletters != "") {
                 $safe_letters_arr = str_split($safe_incletters);
@@ -110,6 +133,23 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
             }
             if ($safe_letter5 != "") {
                 $stmt->bindParam(':letter5', $safe_letter5);
+            }
+            
+            // Found letter bad position
+            if ($safe_bpletter1 != "") {
+                $stmt->bindParam(':bpletter1', $safe_bpletter1);
+            }
+            if ($safe_bpletter2 != "") {
+                $stmt->bindParam(':bpletter2', $safe_bpletter2);
+            }
+            if ($safe_bpletter3 != "") {
+                $stmt->bindParam(':bpletter3', $safe_bpletter3);
+            }
+            if ($safe_bpletter4 != "") {
+                $stmt->bindParam(':bpletter4', $safe_bpletter4);
+            }
+            if ($safe_bpletter5 != "") {
+                $stmt->bindParam(':bpletter5', $safe_bpletter5);
             }
 
             // Included letters
@@ -184,19 +224,27 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
                             <label for="incletters">Include Letters:</label>
                             <input type="text" name="incletters" id="incletters" value="<?= $safe_incletters ?>" />
                         </div>
+                       <div class="row">
+                            <label for="confletters">Confirmed Positions:</label>
+                            <input type="text" name="letter1" id="letter1" class="col-md-1" maxlength="1" value="<?= $safe_letter1 ?>" />
+                            <input type="text" name="letter2" id="letter2" class="col-md-1" maxlength="1" value="<?= $safe_letter2 ?>" />
+                            <input type="text" name="letter3" id="letter3" class="col-md-1" maxlength="1" value="<?= $safe_letter3 ?>" />
+                            <input type="text" name="letter4" id="letter4" class="col-md-1" maxlength="1" value="<?= $safe_letter4 ?>" />
+                            <input type="text" name="letter5" id="letter5" class="col-md-1" maxlength="1" value="<?= $safe_letter5 ?>" />
+                        </div>
+                       <div class="row">
+                            <label for="badposletters">Bad Positions:</label>
+                            <input type="text" name="bpletter1" id="bpletter1" class="col-md-1" maxlength="1" value="<?= $safe_bpletter1 ?>" />
+                            <input type="text" name="bpletter2" id="bpletter2" class="col-md-1" maxlength="1" value="<?= $safe_bpletter2 ?>" />
+                            <input type="text" name="bpletter3" id="bpletter3" class="col-md-1" maxlength="1" value="<?= $safe_bpletter3 ?>" />
+                            <input type="text" name="bpletter4" id="bpletter4" class="col-md-1" maxlength="1" value="<?= $safe_bpletter4 ?>" />
+                            <input type="text" name="bpletter5" id="bpletter5" class="col-md-1" maxlength="1" value="<?= $safe_bpletter5 ?>" />
+                        </div>
                         <div class="row">
                             <label for="excletters">Exclude Letters:</label>
                             <input type="text" name="excletters" id="excletters" value="<?= $safe_excletters ?>" />
                         </div>
-                        <div class="row">
-                            <label for="confletters">Confirmed Letters:</label>
-                            <input type="text" name="letter1" id="letter1" class="col-md-1" value="<?= $safe_letter1 ?>" />
-                            <input type="text" name="letter2" id="letter2" class="col-md-1" value="<?= $safe_letter2 ?>" />
-                            <input type="text" name="letter3" id="letter3" class="col-md-1" value="<?= $safe_letter3 ?>" />
-                            <input type="text" name="letter4" id="letter4" class="col-md-1" value="<?= $safe_letter4 ?>" />
-                            <input type="text" name="letter5" id="letter5" class="col-md-1" value="<?= $safe_letter5 ?>" />
-                        </div>
-                        <div class="row">&nbsp;</div>
+                         <div class="row">&nbsp;</div>
                         <div class="row">
                             <input class="btn btn-primary col-md-4" name="submit" type="submit" value="Submit">
                             &nbsp; <a href="/" class="btn btn-primary col-md-4">Clear</a>
@@ -204,7 +252,7 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
                     </div>
                     <div class="col-md-8 col-sm-12">
                         <h2>Words</h2>
-                        <textarea name="wordlist" id="wordlist" class="col-md-12" rows="12"><?= $safe_wordlist ?></textarea>
+                        <textarea name="wordlist" id="wordlist" class="col-md-12" rows="15"><?= $safe_wordlist ?></textarea>
 
                     </div>
                 </div>
