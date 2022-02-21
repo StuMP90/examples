@@ -260,6 +260,7 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
         </form>
 
         <div class="container">
+            <p><a href="/analysis">Finder words by letter frequency analysis</a></p>
             <p>Stuart Millington 2022</p>
         </div>
 
