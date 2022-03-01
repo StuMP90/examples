@@ -102,6 +102,7 @@ function get_remote_data() {  // Fetch remote data with Curl
             }
             echo("                geometry: new ol.geom.Point(ol.proj.transform([" . $val['long'] . "," . $val['lat'] . "], 'EPSG:4326', 'EPSG:3857')),");
             echo("                name: 'Callsign: " . $val['flight'] . " (" . $val['icao24'] . ")<br/>ICAO Origin: " . $val['country'] . " <br>Altitude: " .  number_format($val['alt'],0)  . " m <br>Velocity: " .  number_format(($val['speed'] * 2.236936),0)  . " mph <br>Heading: " .  number_format($val['track'],0)  . " deg',");
+            echo("                operator: '" . strtoupper($val['icao24']) . "',");
             echo("            });");
             $marker_list_arr[] = "marker" . $j;
             $j++;
@@ -196,7 +197,7 @@ function get_remote_data() {  // Fetch remote data with Curl
                         container: element.parentElement,
                         html: true,
                         sanitize: false,
-                        content: feature.get('name'),
+                        content: feature.get('name') + "<br/><a href='https://www.planespotters.net/hex/" + feature.get('operator') + "'>PlaneSpotters.net Lookup</a>",
                         placement: 'top',
                     });
                     $(element).popover('show');
