@@ -3,6 +3,8 @@
 Just some examples, experiments and references for local use.
 
 ## Mar 2022
+* wordle2 - I found out today that all of wordle's dictionary words - both allowed guesses and answers (in chronological order... DOH!!!) - are in the page source code. So I replaced the dictionary in the finder. I also added positional analysis to the best word lists. Of course I now know the currenly planned answers for the next few years...
+
 * flightslive - An OpenStreetMap map with, live, OpenSky aircraft markers. Russian, Belarusian and Chinese aircraft are meant to be colour coded (red, amber, yellow). However, the ICAO transponder code only appears to signify the aircraft origin rather than the current operator, e.g. a UK owned aircraft leased and operated by a Russian airline will show as UK. If I can find a keyless API to lookup the current operator I may update this. (Using PHP 7.4, under Valet on Mac.)
 
 ## Jan/Feb 2022
