@@ -274,6 +274,7 @@ if (($safe_incletters != "") || ($safe_excletters != "") || ($safe_letter1 != ""
 
         <div class="container">
             <p><a href="/analysis">Finder words by letter frequency and position analysis</a></p>
+            <p><a href="/answers.php">Answers for cheats...</a></p>
             <p>Of course... the answers are in the page source code anyway... DOH!!!</p>
             <p>Stuart Millington 2022</p>
         </div>

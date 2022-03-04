@@ -239,6 +239,7 @@ for ($jj = 1; $jj < 6; $jj++) {
 ?>
         <div class="container">
             <p><a href="/">Word Finder</a></p>
+            <p><a href="/answers.php">Answers for cheats...</a></p>
             <p>Stuart Millington 2022</p>
         </div>
 
