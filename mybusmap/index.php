@@ -116,82 +116,82 @@ ini_set('display_errors', 0);
         shadowSize: [41, 41]
     });
     var arr0Icon = new L.Icon({
-        iconUrl: '/arr-0.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr0.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr1Icon = new L.Icon({
-        iconUrl: '/arr-1.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr1.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr2Icon = new L.Icon({
-        iconUrl: '/arr-2.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr2.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr3Icon = new L.Icon({
-        iconUrl: '/arr-3.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr3.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr4Icon = new L.Icon({
-        iconUrl: '/arr-4.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr4.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr5Icon = new L.Icon({
-        iconUrl: '/arr-5.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr5.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr6Icon = new L.Icon({
-        iconUrl: '/arr-6.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr6.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr7Icon = new L.Icon({
-        iconUrl: '/arr-7.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr7.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr8Icon = new L.Icon({
-        iconUrl: '/arr-8.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr8.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr9Icon = new L.Icon({
-        iconUrl: '/arr-9.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr9.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr10Icon = new L.Icon({
-        iconUrl: '/arr-10.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr10.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr11Icon = new L.Icon({
-        iconUrl: '/arr-11.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr11.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
     var arr12Icon = new L.Icon({
-        iconUrl: '/arr-12.png',
-        iconSize: [35, 35],
-        iconAnchor: [17, 17],
-        popupAnchor: [17, 17]
+        iconUrl: '/arr12.png',
+        iconSize: [45, 45],
+        iconAnchor: [22, 22],
+        popupAnchor: [22, 22]
     });
 <?php
     foreach ($pinloc_arr as $pinloc) {
