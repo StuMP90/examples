@@ -45,7 +45,7 @@ ini_set('display_errors', 0);
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
 
-    var apiKey = 'INSERT_OS_MAPS_API_KEY_HERE';
+    var apiKey = 'ADD_YOUR_MAPS_API_KEY';
     var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
     
     var geolat = 52.49750000;
@@ -115,6 +115,84 @@ ini_set('display_errors', 0);
         popupAnchor: [1, -34],
         shadowSize: [41, 41]
     });
+    var arr0Icon = new L.Icon({
+        iconUrl: '/arr-0.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr1Icon = new L.Icon({
+        iconUrl: '/arr-1.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr2Icon = new L.Icon({
+        iconUrl: '/arr-2.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr3Icon = new L.Icon({
+        iconUrl: '/arr-3.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr4Icon = new L.Icon({
+        iconUrl: '/arr-4.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr5Icon = new L.Icon({
+        iconUrl: '/arr-5.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr6Icon = new L.Icon({
+        iconUrl: '/arr-6.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr7Icon = new L.Icon({
+        iconUrl: '/arr-7.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr8Icon = new L.Icon({
+        iconUrl: '/arr-8.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr9Icon = new L.Icon({
+        iconUrl: '/arr-9.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr10Icon = new L.Icon({
+        iconUrl: '/arr-10.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr11Icon = new L.Icon({
+        iconUrl: '/arr-11.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
+    var arr12Icon = new L.Icon({
+        iconUrl: '/arr-12.png',
+        iconSize: [35, 35],
+        iconAnchor: [17, 17],
+        popupAnchor: [17, 17]
+    });
 <?php
     foreach ($pinloc_arr as $pinloc) {
         foreach ($pinloc as $key => $value) {
@@ -131,7 +209,15 @@ ini_set('display_errors', 0);
 ?>
     var marker = L.marker([<?php echo $bus_stat['MonitoredVehicleJourney']['VehicleLocation']['Latitude'] . "," . $bus_stat['MonitoredVehicleJourney']['VehicleLocation']['Longitude']; ?>],{
         title: '<?php echo(htmlspecialchars($xbid)); ?>',
-        icon: goldIcon,
+<?php
+    if (isset($bus_stat['MonitoredVehicleJourney']['Bearing'])) {
+        $iconsel = floor($bus_stat['MonitoredVehicleJourney']['Bearing']/30);
+        echo("        icon: arr" . $iconsel . "Icon,");
+    } else {
+        echo("        icon: goldIcon,");
+    }
+?>
+
     }).addTo(map);
 <?php
         }

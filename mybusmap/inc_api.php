@@ -5,9 +5,9 @@ require_once __DIR__ . '/config.php';
 function get_remote_data($ds = "")  // Fetch remote data with Curl
 {
     if ($ds == "diamond") {
-        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/763/?api_key=INSERT_DFT_GOV_UK_API_KEY_HERE";
+        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/763/?api_key=ADD_YOUR_API_KEY";
     } elseif ($ds == "nxbus") {
-        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/3338/?api_key=INSERT_DFT_GOV_UK_API_KEY_HERE";
+        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/6583/?api_key=ADD_YOUR_API_KEY";
     } else {
         return false;
     }
