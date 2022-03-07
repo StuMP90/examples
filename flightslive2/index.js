@@ -8,9 +8,10 @@ function initMap() {
         center: bhx,
     });
     
+    // Replace example.com with your FQDN
     var rnum = Math.floor(Math.random() * 1000) + 1;    // random to work around Cloudflare cache
     var ctaLayer = new google.maps.KmlLayer({
-        url: 'https://tools.z-add.co.uk/test/kml.zip?x=' + rnum,
+        url: 'https://example.com/kml.zip?x=' + rnum,
         preserveViewport: true,
         clickable: true,
         map: map

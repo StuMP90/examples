@@ -1,4 +1,11 @@
 <?php
+// Autoload
+include_once __DIR__ . '/vendor/autoload.php';
+
+// Load .env
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 // Due to Google Maps timeouts, this has to pre-generate the KML file...
 ob_start();
 
@@ -151,7 +158,10 @@ if (($result !== false) && ($return_code == 200)) {
     $data_arr = json_decode(json_encode($result),1);
     // Convert json to php array
     $data_arr_a = json_decode($data_arr,1);
+    
     // Write a placemark for each plane
+    unset($aircraft_info);
+    $aircraft_id = 0;
     foreach ($data_arr_a['states'] as $key => $val) {
         //icao24 = $val[0];
         //flight = $val[1];
@@ -161,15 +171,60 @@ if (($result !== false) && ($return_code == 200)) {
         //alt = $val[13]; //meters: 7 = baro, 13 = geo
         //speed = $val[9]; //meters per second ground speed
         //track = $val[10]; //direction
+
+        // See if there is a matching aircraft in the database for additional info
+        
+        try {
+            $dbh = new PDO('mysql:host=localhost;dbname=' . $_ENV['DB_DBSE'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
+            try {
+                $stmt = $dbh->prepare("SELECT id,icao24,registration,manufacturericao,manufacturername,model,operator,operatorcallsign,owner FROM aircraft WHERE icao24 = :icao24;");    // icao24 is a unique key, so there will only ever be one result
+                $stmt->bindParam(':icao24', $val[0]);
+                $stmt->execute();
+                $row = $stmt->fetch();
+                if ($row[0] > 0) {
+                    $aircraft_id = $row[0];
+                    $aircraft_info = $row;
+                    // 0: id
+                    // 1: icao24
+                    // 2: registration
+                    // 3: manufacturericao
+                    // 4: manufacturername
+                    // 5: model
+                    // 6: operator
+                    // 7: operatorcallsign
+                    // 8: owner
+                } else {
+                    $aircraft_id = 0;
+                    $aircraft_info = array();
+                }
+            } catch (PDOException $e) {
+
+            }
+        } catch (PDOException $e) {
+
+        }
 ?>
     <Placemark>
       <name><?= $val[1] ?> (<?= $val[0] ?>)</name>
       <styleUrl>#arrowIcon<?= number_format(floor($val[10]/22.5),0) ?></styleUrl>
       <description>
         <![CDATA[
+
+<?php
+        if ($aircraft_id > 0) {
+?>
+          <p><strong>Aircraft: <?= $aircraft_info[2] ?></strong><br />
+          Aircraft: <?= htmlspecialchars($aircraft_info[4],ENT_QUOTES) ?> <?= htmlspecialchars($aircraft_info[5],ENT_QUOTES) ?><br />
+          Operator: <?= htmlspecialchars($aircraft_info[8],ENT_QUOTES) ?> <?= htmlspecialchars($aircraft_info[6],ENT_QUOTES) ?> (<?= htmlspecialchars($aircraft_info[7],ENT_QUOTES) ?>)<br />
+<?php
+        } else {
+?>
           <p><strong>Callsign: <?= $val[1] ?></strong><br />
           ICAO24: <?= $val[0] ?><br />
           ICAO Origin: <?= htmlspecialchars($val[2],ENT_QUOTES) ?><br />
+<?php
+        }
+?>
           Lat,Long: <?= $val[6] ?>,<?= $val[5] ?><br />
           Altitude: <?= number_format($val[13],0) ?> metres<br />
           Speed: <?= number_format(($val[9] * 2.236936),0) ?> mph<br />
