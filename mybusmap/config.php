@@ -3,13 +3,11 @@
 $bus_arr = array(
     '226' => 'diamond',
     '15' => 'nxbus',
-    '15A' => 'nxbus',
     '16' => 'nxbus',
 );
 $bus_mtch_arr = array(
     '226' => '226',
     '15' => 'N15',
-    '15A' => 'N15A',
     '16' => 'N16',
 );
 

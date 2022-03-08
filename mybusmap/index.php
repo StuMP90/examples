@@ -11,6 +11,7 @@ ini_set('display_errors', 0);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>MyBus</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://labs.os.uk/public/os-api-branding/v0.3.0/os-api-branding.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <link rel="stylesheet" href="/site.css" />
@@ -26,7 +27,7 @@ ini_set('display_errors', 0);
     }
     $bus_live_datax = get_remote_data($bus_arr[$xbid]);
     $bus_live_data = $bus_live_datax['ServiceDelivery']['VehicleMonitoringDelivery']['VehicleActivity'];
-    $col_wid = (int) floor(12/count($bus_arr));
+    $col_wid = (int) floor(12/(count($bus_arr) + 1));
     foreach ($bus_arr as $key => $value) {
         ?>
         <div class="col-<?php echo($col_wid); ?> tcen">
@@ -35,6 +36,9 @@ ini_set('display_errors', 0);
         <?php
     }
 ?>
+        <div class="col-<?php echo($col_wid); ?> tcen">
+            <a class="btn btn-outline-primary" href="#" onClick="window.location.reload();"><i class="fas fa-sync"></i></a>
+        </div>
     </div>
 </div>
 <div id="map"></div>
