@@ -6,23 +6,15 @@ include_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-// Due to Google's incredibly low timeout on loading KML files
-// and the ram limit on the development server it is necessary
-// to pre-generate the KML rather than to translate the
-// openskies api data into KML on the fly.
-// 
-// In a production version this would all be from a local cache, either
-// MySQL or ElasticSearch.
+// Due to Gooogle maps timeouts on KMZ files, we need to pregenerate
+// the KMZ file, rather than encode it on the fly. This needs to be
+// safe from race conditions...
+include_once __DIR__ . '/kmlkmz.php';
+$temp_id = pregen_kmz();
 
-// Replace example.com with your own FQDN
-// Trigger the API-to-KML translation
-$api_url = "https://example.com/kml.php";
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL,$api_url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
-$result = curl_exec($ch);
-// And free up the memory
-unset($result);
+// The kmldown.php script will pass the generated file to Google
+// and delete it once it has been downloaded.
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +22,25 @@ unset($result);
         <meta charset="utf-8">
         <title>Live Flights with Google Maps</title>
         <link rel="stylesheet" type="text/css" href="./style.css" />
-        <script src="./index.js"></script>
+        <script>
+            // Initialize and add the map
+            function initMap() {
+                // BHX location
+                const bhx = { lat: 52.452381, lng: -1.743507 };
+
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 3,
+                    center: bhx,
+                });
+
+                var ctaLayer = new google.maps.KmlLayer({
+                    url: 'https://tools.z-add.co.uk/test/kmldown.php?kmz=<?= $temp_id ?>',
+                    preserveViewport: true,
+                    clickable: true,
+                    map: map
+                });
+            }
+        </script>
     </head>
     <body>
         <div class="header">

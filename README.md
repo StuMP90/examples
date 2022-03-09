@@ -3,7 +3,7 @@
 Just some examples, experiments and references for local use.
 
 ## Mar 2022
-* flightslive2 - A reworked version of flightslive, but with Google Maps and an API_to_KML translation script this time. Some work arounds were needed due to Google's timeout and file size limits, along with Cloudflare's cache. The main benefit of this version was being able to use Google Earth's non-rotateable, but rotated, icons to indicate aircraft headings. A production version would, obviously, use a database/cache but this was just a test of the maps part. As with the original, all the data sources are free and keyless, which places some limitations on the data that I can use. (Using PHP 7.4, on a standard CentOS/Plesk server as Google only accept "public" KML files.)
+* flightslive2 - A reworked version of flightslive, but with Google Maps and an API_to_KML translation script this time. Some work arounds were needed due to Google's timeout and file size limits, along with Cloudflare's cache. The main benefit of this version was being able to use Google Earth's non-rotateable, but rotated, icons to indicate aircraft headings. (Updated to generate and cache KMZ files.) As with the original, all the data sources are free and keyless, which places some limitations on the data that I can use. (Using PHP 7.4, on a standard CentOS/Plesk server as Google only accept "public" KML files.)
 
 * wordle2 - I found out today that all of wordle's dictionary words - both allowed guesses and answers (in chronological order... DOH!!!) - are in the page source code. So I replaced the dictionary in the finder. I also added positional analysis to the best word lists. Of course I now know the currenly planned answers for the next few years...
 
