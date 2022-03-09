@@ -1,8 +1,34 @@
 .header {
     width:100%;
-    height: 3em;
+    height: 2.5em;
+}
+div.header h2 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+div.filters {
+    display: inline-block;
+    float: right;
+}
+select#srcfil {
+    font-size: 1.2em;
+    width: 15em;
+}
+input[type="submit"] {
+    font-size: 1.1em;
+    margin: 0 0 0 0.5em;
 }
 #map {
-    height: calc(100vh - 6em);
+    height: calc(100vh - 5em);
     width: 100%;
+}
+.footer {
+    width:100%;
+    height: 1.5em;
+}
+p.credit {
+    margin: 0;
+    padding: 0.5em 0 0 0;
+    font-size: 0.85em;
 }

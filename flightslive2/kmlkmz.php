@@ -1,5 +1,5 @@
 <?php
-function pregen_kmz() {
+function pregen_kmz($sid = 0) {
 
     // Due to Google Maps timeouts, this has to pre-generate the KML file...
     ob_start();
@@ -198,6 +198,25 @@ function pregen_kmz() {
             } catch (PDOException $e) {
 
             }
+            // If sid is set then apply filters to placemarks
+            $prt_placemark = false;
+            $srch_list = search_arr();
+                // sfield
+                // sstr
+            if ($sid == 0) {
+                $prt_placemark = true;
+            } else {
+                if (($srch_list[$sid]['sfield'] == "operatorcallsign") && ($srch_list[$sid]['sstr'] == $aircraft_info[7])) {
+                    $prt_placemark = true;
+                } elseif (($srch_list[$sid]['sfield'] == "icao24") && ($srch_list[$sid]['sstr'] == $aircraft_info[1])) {
+                    $prt_placemark = true;
+                } elseif (($srch_list[$sid]['sfield'] == "manufacturername") && (stripos($aircraft_info[4], $srch_list[$sid]['sstr']) !== false)) {
+                    $prt_placemark = true;
+                }
+            }
+            
+            if ($prt_placemark === true) {
+            // START Write placemark
     ?>
         <Placemark>
           <name><?= $val[1] ?> (<?= $val[0] ?>)</name>
@@ -233,6 +252,8 @@ function pregen_kmz() {
           </Point>
         </Placemark>
     <?php
+            }
+            // END Write placemark
         }
     }
     ?>
