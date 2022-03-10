@@ -10,19 +10,23 @@ function search_arr() {
     $arr[] = array("sfield" => "icao24", "sstr" => "a835af", "sdesc" => "Elon Musk");
     
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "SPEEDBIRD", "sdesc" => "British Airways");
-    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VIRGIN", "sdesc" => "Virgin Atlantic");
-    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VELOCITY", "sdesc" => "Virgin Australia Airlines");
-    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "UNITED", "sdesc" => "United Airlines Inc");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "RYANAIR", "sdesc" => "Ryanair");
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VIRGIN", "sdesc" => "Virgin Atlantic");
+    
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VELOCITY", "sdesc" => "Virgin Australia Airlines");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "QANTAS", "sdesc" => "Qantas");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AIRFRANS", "sdesc" => "Air France");
-
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "UNITED", "sdesc" => "United Airlines Inc");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AMERICAN", "sdesc" => "American Airlines Inc");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "DELTA", "sdesc" => "Delta Air Lines");
+        
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AEROFLOT", "sdesc" => "Aeroflot");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "POBEDA", "sdesc" => "Pobeda");
+    
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "WORLD EXPRESS", "sdesc" => "DHL");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "FEDEX", "sdesc" => "FEDEX");
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "UPS", "sdesc" => "United Parcel Service");
+    
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VORTEX", "sdesc" => "Royal Air Force");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "NAVY", "sdesc" => "Royal Navy");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AIR CHIEF", "sdesc" => "United States Air Force");

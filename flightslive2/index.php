@@ -52,10 +52,10 @@ $temp_id = pregen_kmz($sid);
             <h2>Live Flights with Google Maps</h2>
             <div class="filters">
                 <form action="/test/" method="POST">
-                    <select name="srcfil" id="srcfil">
+                    <select name="srcfil" id="srcfil" onchange="this.form.submit()">
                         <?= search_sel($sid) ?>
                     </select>
-                    <input type="submit" name="submit" value="Update" />
+                    <input type="submit" name="frmsubmit" value="Update" />
                 </form>
             </div>
         </div>
