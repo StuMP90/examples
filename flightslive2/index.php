@@ -34,6 +34,7 @@ $temp_id = pregen_kmz($sid);
                 const map = new google.maps.Map(document.getElementById("map"), {
                     zoom: 3,
                     minZoom: 3,
+                    maxZoom: 10,
                     center: bhx,
                 });
 
