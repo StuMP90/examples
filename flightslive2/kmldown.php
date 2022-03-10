@@ -7,7 +7,7 @@ $kmz_file = preg_replace('/[^a-zA-Z0-9]/','',$_GET['kmz'] ?? '');
 $kmz_file_folder = __DIR__ . '/kmltemp/';
 $kmz_file_path = $kmz_file_folder . $kmz_file;
 
-if ($kmz_file != "") {
+if (($kmz_file != "") && (file_exists($kmz_file_path))) {
     header('Content-type: application/zip');
     header('Content-Disposition: attachment; filename="' . $kmz_file . '"');
 
