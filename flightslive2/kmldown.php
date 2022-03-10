@@ -11,19 +11,12 @@ if ($kmz_file != "") {
     header('Content-type: application/zip');
     header('Content-Disposition: attachment; filename="' . $kmz_file . '"');
 
-    ignore_user_abort(true);
-
-    $context = stream_context_create();
-    $file = fopen($kmz_file_path, 'r', FALSE, $context);
-    while(!feof($file)) {
-        echo stream_get_contents($file, 2014);
-    }
+    $file = fopen($kmz_file_path, 'r');
+    echo fread($file, filesize($kmz_file_path));
     fclose($file);
-    flush();
 }
 
 // Before finishing, clean up old files
-
 $purgetime = 5 * 60;  // 5 minutes
 
 if (file_exists($kmz_file_folder)) {

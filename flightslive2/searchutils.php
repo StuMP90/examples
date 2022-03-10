@@ -16,7 +16,8 @@ function search_arr() {
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "DELTA", "sdesc" => "Delta Air Lines");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AEROFLOT", "sdesc" => "Aeroflot");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "POBEDA", "sdesc" => "Pobeda");
-    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "FEDEX", "sdesc" => "Federal Express Corp");
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "WORLD EXPRESS", "sdesc" => "DHL");
+    $arr[] = array("sfield" => "operatorcallsign", "sstr" => "FEDEX", "sdesc" => "FEDEX");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "VORTEX", "sdesc" => "Royal Air Force");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "NAVY", "sdesc" => "Royal Navy");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "AIR CHIEF", "sdesc" => "United States Air Force");
