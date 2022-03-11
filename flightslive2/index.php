@@ -55,7 +55,9 @@ $temp_id = pregen_kmz($sid);
                     <select name="srcfil" id="srcfil" onchange="this.form.submit()">
                         <?= search_sel($sid) ?>
                     </select>
-                    <input type="submit" name="frmsubmit" value="Update" />
+                    <noscript>
+                        <input type="submit" name="frmsubmit" value="Update" />
+                    </noscript>
                 </form>
             </div>
         </div>

@@ -8,6 +8,8 @@ function search_arr() {
     $arr[] = array("sfield" => "", "sstr" => "", "sdesc" => "No Filters");
     
     $arr[] = array("sfield" => "icao24", "sstr" => "a835af", "sdesc" => "Elon Musk");
+    $arr[] = array("sfield" => "icao24", "sstr" => "aa3410", "sdesc" => "Donald Trump (757)");
+    $arr[] = array("sfield" => "icao24", "sstr" => "a9b67c", "sdesc" => "Donald Trump (Cessna)");
     
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "SPEEDBIRD", "sdesc" => "British Airways");
     $arr[] = array("sfield" => "operatorcallsign", "sstr" => "RYANAIR", "sdesc" => "Ryanair");
