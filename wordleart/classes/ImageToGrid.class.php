@@ -128,8 +128,9 @@ class ImageToGrid {
      * @param string $bgcls1 The first background class.
      * @param string $bgcls2 The second background class.
      * @param string $bgcls3 The third background class.
+     * @param string $title_msg A "title" message for the bottom line.
      */
-    public function renderGrid(array $grid, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "") : string {
+    public function renderGrid(array $grid, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "", string $title_msg = "") : string {
         
         $content = "";
         $max_a = $this->getIntKeyMax($grid);
@@ -175,15 +176,17 @@ class ImageToGrid {
             }
         }
 
-        // For the putin special... set the bottom row as a custom title...
-        $title_message = strtoupper("When you attack us, you will see our faces. Not our backs, but our faces. Ukraine is an independent, sovereign, nation. Russia is committing war crimes and pursuing an illegal war.");
-        $message_arr = str_split($title_message, 1);
-        for ($x = 0; $x < $width; $x++) {
-            $grid[$x][$max_y] = 1;
-            if ((isset($message_arr[$x])) && ($message_arr[$x] != " ")) {    // Have to check for blank as spaces don't align properly on the grid...
-                $grid_word[($x)][$max_y] = $message_arr[$x];
-            } else {
-                $grid_word[($x)][$max_y] = "_";
+        // If a custom title is set for the bottom row
+        if ((is_string($title_msg)) && (strlen($title_msg) > 0)) {
+            $title_message = strtoupper($title_msg);
+            $message_arr = str_split($title_message, 1);
+            for ($x = 0; $x < $width; $x++) {
+                $grid[$x][$max_y] = 1;
+                if ((isset($message_arr[$x])) && ($message_arr[$x] != " ")) {    // Have to check for blank as spaces don't align properly on the grid...
+                    $grid_word[($x)][$max_y] = $message_arr[$x];
+                } else {
+                    $grid_word[($x)][$max_y] = "_";
+                }
             }
         }
 
