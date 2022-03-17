@@ -44,6 +44,24 @@ spl_autoload_register(function ($class) {
                 margin-right: 3px;
                 text-align: center;
             }
+            .wordbox_sapphire {
+                width: 22px;
+                height: 22px;
+                background-color: #005bbb;
+                border: solid thin #787c7e;
+                display: inline-block;
+                margin-right: 3px;
+                text-align: center;
+            }
+            .wordbox_yellow {
+                width: 22px;
+                height: 22px;
+                background-color: #ffd500;
+                border: solid thin #787c7e;
+                display: inline-block;
+                margin-right: 3px;
+                text-align: center;
+            }
             body {
                 background-color: #d8dcde;
                 width: 6253px !important;
@@ -59,7 +77,7 @@ spl_autoload_register(function ($class) {
 <?php
     $imggrid = new ImageToGrid();
     $grid_grid = $imggrid->getWordGrid("convertedworld.png");
-    $grid_render_block = $imggrid->renderGridPlain($grid_grid['grid']);
+    $grid_render_block = $imggrid->renderGridFlag($grid_grid['grid']);
 ?>
     </body>
 </html>
