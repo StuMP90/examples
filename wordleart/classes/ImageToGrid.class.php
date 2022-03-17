@@ -1,9 +1,4 @@
 <?php
-// Autoload classes from the classes folder
-spl_autoload_register(function ($class) {
-    include dirname(__DIR__, 1) . '/classes/' . $class . '.class.php';
-});
-
 /* 
  * Convert images to "wordle" grids.
  * 
@@ -11,6 +6,11 @@ spl_autoload_register(function ($class) {
  * be skipped for now as this is a local test/development and I kind of trust
  * myself - a bit anyway.
  */
+
+// Autoload classes from the classes folder
+spl_autoload_register(function ($class) {
+    include dirname(__DIR__, 1) . '/classes/' . $class . '.class.php';
+});
 
 class ImageToGrid {
     
@@ -124,8 +124,12 @@ class ImageToGrid {
      * Render an HTML grid from the previously generated array.
      *
      * @param array $grid The grid as an array.
+     * @param int $bgcol The number of background colours.
+     * @param string $bgcls1 The first background class.
+     * @param string $bgcls2 The second background class.
+     * @param string $bgcls3 The third background class.
      */
-    public function renderGridPlain(array $grid) : string {
+    public function renderGrid(array $grid, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "") : string {
         
         $content = "";
         $max_a = $this->getIntKeyMax($grid);
@@ -191,143 +195,33 @@ class ImageToGrid {
                 if ($grid[$x][$y] == 1) {
                     echo '<span class="wordbox_green">' . $grid_word[$x][$y] . '</span>';
                 } else {
-                    echo '<span class="wordbox_grey">' . $grid_word[$x][$y] . '</span>';
-                }
-            }
-            echo '                </div>';
-            echo '            </div>';
-        }
-        
-        
-        
-        
-        
-        
-        
-/*
-                for($y = 0; $y < $height; $y++) {
-                    for($x = 0; $x < $width; $x++) {
-                        $rgb = imagecolorat($img, $x, $y);
-                        $r = ($rgb >> 16) & 0xFF;
-                        $g = ($rgb >> 8) & 0xFF;
-                        $b = $rgb & 0xFF;
-                        if (($r < 150) && ($g < 150) && ($b < 150)) {
-                            $grid_info['grid'][$x][$y] = 1;
-                        } else {
-                            $grid_info['grid'][$x][$y] = 0;
-                        }
-                    }
-                }
-*/
-        
-        return $content;
-    }
-    
-    /**
-     * Render an HTML grid from the previously generated array.
-     *
-     * @param array $grid The grid as an array.
-     */
-    public function renderGridFlag(array $grid) : string {
-        
-        $content = "";
-        $max_a = $this->getIntKeyMax($grid);
-        $max_x = $max_a['x'];
-        $max_y = $max_a['y'];
-        $width = $max_a['x'] + 1;
-        $height = $max_a['y'] + 1;
-        
-        $content .= "<p>Array Max X: " . $max_x . "<br />Array Max Y:" . $max_y . "<br />Width: " . $width . "<br />Height:" . $height . "</p>";
-        
-        // Get words for the grid
-        // Move across the x axis in blocks of 5
-        $grid_word = array();
-        $wordle = new WordleWords();
-        // A few synonyms relating to descriptions of putin...
-        $putin_alts = array("PUTIN","SATAN","CROOK","WRONG","SHADY","ROGUE","THIEF");
-        
-        for ($x = 0; $x < $width; $x = $x + 5) {
-            for ($y = 0; $y < $height; $y++) {
-                // For this one, I'm using a fixed set of words appropriate to the time
-                // To save an database load (and time outs on the mac this is running on)
-                // bypass the database if all 5 positions are on.
-                if (($grid[($x)][$y] + $grid[($x + 1)][$y] + $grid[($x + 2)][$y] + $grid[($x + 3)][$y] + $grid[($x + 4)][$y]) == 5) {
-                    // Get variations for putin for variety
-                    $rand_key = array_rand($putin_alts, 1);
-                    $wordle_word = $putin_alts[$rand_key];
-                } else {
-                    $wordle_word = $wordle->getWordCustom("putin", $grid[($x)][$y], $grid[($x + 1)][$y], $grid[($x + 2)][$y], $grid[($x + 3)][$y], $grid[($x + 4)][$y]);
-                }
-                if ($wordle_word != "") {
-                    $grid_word[($x)][$y] = strtoupper(substr($wordle_word,0,1));
-                    $grid_word[($x + 1)][$y] = strtoupper(substr($wordle_word,1,1));
-                    $grid_word[($x + 2)][$y] = strtoupper(substr($wordle_word,2,1));
-                    $grid_word[($x + 3)][$y] = strtoupper(substr($wordle_word,3,1));
-                    $grid_word[($x + 4)][$y] = strtoupper(substr($wordle_word,4,1));
-                } else {
-                    $grid_word[($x)][$y] = " ";
-                    $grid_word[($x + 1)][$y] = " ";
-                    $grid_word[($x + 2)][$y] = " ";
-                    $grid_word[($x + 3)][$y] = " ";
-                    $grid_word[($x + 4)][$y] = " ";
-                }
-            }
-        }
-
-        // For the putin special... set the bottom row as a custom title...
-        $title_message = strtoupper("When you attack us, you will see our faces. Not our backs, but our faces. Ukraine is an independent, sovereign, nation. Russia is committing war crimes and pursuing an illegal war.");
-        $message_arr = str_split($title_message, 1);
-        for ($x = 0; $x < $width; $x++) {
-            $grid[$x][$max_y] = 1;
-            if ((isset($message_arr[$x])) && ($message_arr[$x] != " ")) {    // Have to check for blank as spaces don't align properly on the grid...
-                $grid_word[($x)][$max_y] = $message_arr[$x];
-            } else {
-                $grid_word[($x)][$max_y] = "_";
-            }
-        }
-
-        // Output the HTML Grid
-        for ($y = 0; $y < $height; $y++) {
-            echo '            <div class="row">';
-            echo '                <div class="tcen">';
-            for ($x = 0; $x < $width; $x++) {
-                if ($grid[$x][$y] == 1) {
-                    echo '<span class="wordbox_green">' . $grid_word[$x][$y] . '</span>';
-                } else {
-                    if ($y < ($max_y / 2)) {    // Luckily it's a bicolour flag, so simple to render
-                        echo '<span class="wordbox_sapphire">' . $grid_word[$x][$y] . '</span>';
-                    } else {
-                        echo '<span class="wordbox_yellow">' . $grid_word[$x][$y] . '</span>';
+                    switch ($bgcol) {
+                        case 3:
+                            if ($y < ($height * 0.3333)) {
+                                echo '<span class="' . $bgcls1 . '">' . $grid_word[$x][$y] . '</span>';
+                            } elseif ($y < ($height * 0.6666)) {
+                                echo '<span class="' . $bgcls2 . '">' . $grid_word[$x][$y] . '</span>';
+                            } else {
+                                echo '<span class="' . $bgcls3 . '">' . $grid_word[$x][$y] . '</span>';
+                            }
+                            break;
+                        case 2:
+                            if ($y < ($height * 0.5)) {
+                                echo '<span class="' . $bgcls1 . '">' . $grid_word[$x][$y] . '</span>';
+                            } else {
+                                echo '<span class="' . $bgcls2 . '">' . $grid_word[$x][$y] . '</span>';
+                            }
+                            break;
+                        default:
+                            echo '<span class="' . $bgcls1 . '">' . $grid_word[$x][$y] . '</span>';
+                            break;
                     }
                 }
             }
             echo '                </div>';
             echo '            </div>';
         }
-        
-        
-        
-        
-        
-        
-        
-/*
-                for($y = 0; $y < $height; $y++) {
-                    for($x = 0; $x < $width; $x++) {
-                        $rgb = imagecolorat($img, $x, $y);
-                        $r = ($rgb >> 16) & 0xFF;
-                        $g = ($rgb >> 8) & 0xFF;
-                        $b = $rgb & 0xFF;
-                        if (($r < 150) && ($g < 150) && ($b < 150)) {
-                            $grid_info['grid'][$x][$y] = 1;
-                        } else {
-                            $grid_info['grid'][$x][$y] = 0;
-                        }
-                    }
-                }
-*/
-        
         return $content;
     }
-    
+
 }

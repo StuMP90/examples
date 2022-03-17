@@ -59,7 +59,7 @@ spl_autoload_register(function ($class) {
 <?php
     $imggrid = new ImageToGrid();
     $grid_grid = $imggrid->getWordGrid("convertedworld.png");
-    $grid_render_block = $imggrid->renderGridPlain($grid_grid['grid']);
+    $grid_render_block = $imggrid->renderGrid($grid_grid['grid'],1,"wordbox_grey");
 ?>
     </body>
 </html>
