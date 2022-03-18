@@ -83,7 +83,7 @@ class ImageToGrid {
                 }
                 $grid_info['status'] = "Valid image";
             } else {
-                $grid_info['status'] = "Inalid image";
+                $grid_info['status'] = "Invalid image";
             }
         } else {
             $grid_info['status'] = "File not found";
@@ -124,13 +124,15 @@ class ImageToGrid {
      * Render an HTML grid from the previously generated array.
      *
      * @param array $grid The grid as an array.
+     * @param array $match_words The grid as an array.
+     * @param array $search_words The grid as an array.
      * @param int $bgcol The number of background colours.
      * @param string $bgcls1 The first background class.
      * @param string $bgcls2 The second background class.
      * @param string $bgcls3 The third background class.
      * @param string $title_msg A "title" message for the bottom line.
      */
-    public function renderGrid(array $grid, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "", string $title_msg = "") : string {
+    public function renderGrid(array $grid, array $match_words, array $search_words, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "", string $title_msg = "") : string {
         
         $content = "";
         $max_a = $this->getIntKeyMax($grid);
@@ -145,33 +147,35 @@ class ImageToGrid {
         // Move across the x axis in blocks of 5
         $grid_word = array();
         $wordle = new WordleWords();
-        // A few synonyms relating to descriptions of putin...
-        $putin_alts = array("PUTIN","SATAN","CROOK","WRONG","SHADY","ROGUE","THIEF");
         
         for ($x = 0; $x < $width; $x = $x + 5) {
             for ($y = 0; $y < $height; $y++) {
-                // For this one, I'm using a fixed set of words appropriate to the time
-                // To save an database load (and time outs on the mac this is running on)
-                // bypass the database if all 5 positions are on.
-                if (($grid[($x)][$y] + $grid[($x + 1)][$y] + $grid[($x + 2)][$y] + $grid[($x + 3)][$y] + $grid[($x + 4)][$y]) == 5) {
-                    // Get variations for putin for variety
-                    $rand_key = array_rand($putin_alts, 1);
-                    $wordle_word = $putin_alts[$rand_key];
-                } else {
-                    $wordle_word = $wordle->getWordCustom("putin", $grid[($x)][$y], $grid[($x + 1)][$y], $grid[($x + 2)][$y], $grid[($x + 3)][$y], $grid[($x + 4)][$y]);
-                }
-                if ($wordle_word != "") {
-                    $grid_word[($x)][$y] = strtoupper(substr($wordle_word,0,1));
-                    $grid_word[($x + 1)][$y] = strtoupper(substr($wordle_word,1,1));
-                    $grid_word[($x + 2)][$y] = strtoupper(substr($wordle_word,2,1));
-                    $grid_word[($x + 3)][$y] = strtoupper(substr($wordle_word,3,1));
-                    $grid_word[($x + 4)][$y] = strtoupper(substr($wordle_word,4,1));
-                } else {
-                    $grid_word[($x)][$y] = " ";
-                    $grid_word[($x + 1)][$y] = " ";
-                    $grid_word[($x + 2)][$y] = " ";
-                    $grid_word[($x + 3)][$y] = " ";
-                    $grid_word[($x + 4)][$y] = " ";
+
+                // Loop through the $search_words
+                foreach ($search_words as $search_key) {
+                    // match_words allows bypassing the database when all bits are
+                    // on. This saves database load (and time outs on the mac this
+                    // is running on). Bypass the database if all 5 positions are on.
+                    if (($grid[($x)][$y] + $grid[($x + 1)][$y] + $grid[($x + 2)][$y] + $grid[($x + 3)][$y] + $grid[($x + 4)][$y]) == 5) {
+                        // Get variations for putin for variety
+                        $wordle_word = strtoupper($match_words[array_rand($match_words, 1)]);
+                    } else {
+                        $wordle_word = $wordle->getWordCustom($search_key, $grid[($x)][$y], $grid[($x + 1)][$y], $grid[($x + 2)][$y], $grid[($x + 3)][$y], $grid[($x + 4)][$y]);
+                    }
+                    if ($wordle_word != "") {
+                        $grid_word[($x)][$y] = strtoupper(substr($wordle_word,0,1));
+                        $grid_word[($x + 1)][$y] = strtoupper(substr($wordle_word,1,1));
+                        $grid_word[($x + 2)][$y] = strtoupper(substr($wordle_word,2,1));
+                        $grid_word[($x + 3)][$y] = strtoupper(substr($wordle_word,3,1));
+                        $grid_word[($x + 4)][$y] = strtoupper(substr($wordle_word,4,1));
+                        break;  // Break out of $search_words loop once word found
+                    } else {
+                        $grid_word[($x)][$y] = " ";
+                        $grid_word[($x + 1)][$y] = " ";
+                        $grid_word[($x + 2)][$y] = " ";
+                        $grid_word[($x + 3)][$y] = " ";
+                        $grid_word[($x + 4)][$y] = " ";
+                    }
                 }
             }
         }
