@@ -121,27 +121,20 @@ class ImageToGrid {
     }
     
     /**
-     * Render an HTML grid from the previously generated array.
+     * Render the grid from the previously generated array.
      *
      * @param array $grid The grid as an array.
      * @param array $match_words The grid as an array.
      * @param array $search_words The grid as an array.
-     * @param int $bgcol The number of background colours.
-     * @param string $bgcls1 The first background class.
-     * @param string $bgcls2 The second background class.
-     * @param string $bgcls3 The third background class.
      * @param string $title_msg A "title" message for the bottom line.
      */
-    public function renderGrid(array $grid, array $match_words, array $search_words, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "", string $title_msg = "") : string {
+    public function renderGrid(array $grid, array $match_words, array $search_words, string $title_msg = "") : array {
         
-        $content = "";
         $max_a = $this->getIntKeyMax($grid);
         $max_x = $max_a['x'];
         $max_y = $max_a['y'];
         $width = $max_a['x'] + 1;
         $height = $max_a['y'] + 1;
-        
-        $content .= "<p>Array Max X: " . $max_x . "<br />Array Max Y:" . $max_y . "<br />Width: " . $width . "<br />Height:" . $height . "</p>";
         
         // Get words for the grid
         // Move across the x axis in blocks of 5
@@ -194,6 +187,30 @@ class ImageToGrid {
             }
         }
 
+        return array(
+            'grid' => $grid,
+            'grid_words' => $grid_word
+            );
+    }
+
+    /**
+     * Render the grid from the previously generated array.
+     *
+     * @param array $grid The grid as an array.
+     * @param array $grid_word The words for the grid as an array.
+     * @param int $bgcol The number of background colours.
+     * @param string $bgcls1 The first background class.
+     * @param string $bgcls2 (optional) The second background class.
+     * @param string $bgcls3 (optional) The third background class.
+     */
+    public function paintGrid(array $grid, array $grid_word, int $bgcol = 1, string $bgcls1 = "", string $bgcls2 = "", string $bgcls3 = "") : void {
+        
+        $max_a = $this->getIntKeyMax($grid);
+        $max_x = $max_a['x'];
+        $max_y = $max_a['y'];
+        $width = $max_a['x'] + 1;
+        $height = $max_a['y'] + 1;
+        
         // Output the HTML Grid
         for ($y = 0; $y < $height; $y++) {
             echo '            <div class="row">';
@@ -228,7 +245,5 @@ class ImageToGrid {
             echo '                </div>';
             echo '            </div>';
         }
-        return $content;
     }
-
 }

@@ -80,7 +80,8 @@ spl_autoload_register(function ($class) {
     $match_words = array("PUTIN","SATAN","CROOK","WRONG","SHADY","ROGUE","THIEF");
     $search_words = array("putin","crook");
     $title_message = "When you attack us, you will see our faces. Not our backs, but our faces. Ukraine is an independent, sovereign, nation. Russia is committing war crimes and pursuing an illegal war.";
-    $grid_render_block = $imggrid->renderGrid($grid_grid['grid'],$match_words,$search_words,2,"wordbox_sapphire","wordbox_yellow","",$title_message);
+    $grid_render_block = $imggrid->renderGrid($grid_grid['grid'],$match_words,$search_words,$title_message);
+    $imggrid->paintGrid($grid_render_block['grid'], $grid_render_block['grid_words'],2,"wordbox_sapphire","wordbox_yellow");
 ?>
     </body>
 </html>
