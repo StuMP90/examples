@@ -3,7 +3,7 @@
 Just some examples, experiments and references for local use.
 
 ## Mar 2022
-* wordleart - Experiments generating words within word grids in a wordle style with valid words. (Using PHP 7.4, under Valet on Mac.)
+* wordleart - Experiments generating words within word grids in a wordle style with valid words. One version prints dot matrix style letters within letters, the other converts black and white images into a grid and then populates it. (Using PHP 7.4, under Valet on Mac.)
 
 * flightslive2 - A reworked version of flightslive, but with Google Maps and an API_to_KML translation script this time. Some work arounds were needed due to Google's timeout and file size limits, along with Cloudflare's cache. The main benefit of this version was being able to use Google Earth's non-rotateable, but rotated, icons to indicate aircraft headings. (Updated to generate and cache KMZ files.) As with the original, all the data sources are free and keyless, which places some limitations on the data that I can use. (Using PHP 7.4, on a standard CentOS/Plesk server as Google only accept "public" KML files.)
 
