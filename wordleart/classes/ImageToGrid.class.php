@@ -126,7 +126,7 @@ class ImageToGrid {
      * @param array $grid The grid as an array.
      * @param array $match_words The grid as an array.
      * @param array $search_words The grid as an array.
-     * @param string $title_msg A "title" message for the bottom line.
+     * @param string $title_msg (optional) A "title" message for the bottom line.
      */
     public function renderGrid(array $grid, array $match_words, array $search_words, string $title_msg = "") : array {
         

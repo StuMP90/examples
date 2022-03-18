@@ -82,7 +82,7 @@ class LetterMatrixGrid {
      * @param int $width The matrix width in blocks.
      * @param int $height The matrix height in blocks.
      */
-    private function getBlankGrid(int $grid_x, int $grid_y) {
+    private function getBlankGrid(int $grid_x, int $grid_y) : array {
         if (!($this->isValidGrid($grid_x, $grid_y))) {
             $grid_x = 5;
             $grid_y = 6;
@@ -106,8 +106,8 @@ class LetterMatrixGrid {
      * @param string $alnum The character which the matrix is generated for.
      * @param int $matrix_x The matrix width in blocks.
      * @param int $matrix_y The matrix height in blocks.
-     * @param int $offset_x The matrix offset in blocks.
-     * @param int $offset_y The matrix offset in blocks.
+     * @param int $offset_x (optional) The matrix offset in blocks.
+     * @param int $offset_y (optional) The matrix offset in blocks.
      */
     public function getGrid(string $alnum = "", int $matrix_x = 5, int $matrix_y = 5, int $offset_x = 0, int $offset_y = 0) : array {
         
