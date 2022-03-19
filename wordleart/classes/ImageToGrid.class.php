@@ -194,7 +194,7 @@ class ImageToGrid {
     }
 
     /**
-     * Render the grid from the previously generated array.
+     * Paint the grid from the previously generated array.
      *
      * @param array $grid The grid as an array.
      * @param array $grid_word The words for the grid as an array.
@@ -245,5 +245,91 @@ class ImageToGrid {
             echo '                </div>';
             echo '            </div>';
         }
+    }
+    
+    /**
+     * Create a PNG image from the previously generated array.
+     *
+     * @param array $grid The grid as an array.
+     * @param array $grid_word The words for the grid as an array.
+     * @param string $filename The output filename.
+     * @param int $bgcol The number of background colours.
+     * @param string $bgcls1 The first background colour.
+     * @param string $bgcls2 (optional) The second background colour.
+     * @param string $bgcls3 (optional) The third background colour.
+     */
+    public function paintGridPng(array $grid, array $grid_word, string $filename, int $bgcol = 1, string $bgcls1 = "d8dcde", string $bgcls2 = "d8dcde", string $bgcls3 = "d8dcde") : void {
+        
+        $max_a = $this->getIntKeyMax($grid);
+        $max_x = $max_a['x'];
+        $max_y = $max_a['y'];
+        $width = $max_a['x'] + 1;
+        $height = $max_a['y'] + 1;
+        
+        $pixel_width = 3 + ($width * 25);
+        $pixel_height = 3 + ($height * 25);
+        
+        $im_dstfile = dirname(__DIR__, 1)  . "/images/out/" . $filename . ".png";
+        
+        // Attempt to create a blank image
+        $im = @imagecreatetruecolor($pixel_width, $pixel_height) or die('Cannot Initialize new GD image stream');
+        // Set to 300dpi
+        imageresolution($im, 300);
+
+        // Set coloured backgrounds
+        switch ($bgcol) {
+            case 3:
+                $split1 = floor($pixel_height * 0.3333);
+                $split2 = floor($pixel_height * 0.6666);
+                $bg1 = imagecolorallocate($im, hexdec(substr($bgcls1,0,2)), hexdec(substr($bgcls1,2,2)), hexdec(substr($bgcls1,4,2)));
+                $bg2 = imagecolorallocate($im, hexdec(substr($bgcls2,0,2)), hexdec(substr($bgcls2,2,2)), hexdec(substr($bgcls2,4,2)));
+                $bg3 = imagecolorallocate($im, hexdec(substr($bgcls3,0,2)), hexdec(substr($bgcls3,2,2)), hexdec(substr($bgcls3,4,2)));
+                imagefilledrectangle($im, 3, 3, ($pixel_width - 3), $split1, $bg1);
+                imagefilledrectangle($im, 3, ($split1 + 1), ($pixel_width - 3), $split2, $bg2);
+                imagefilledrectangle($im, 3, ($split2 + 1), ($pixel_width - 3), ($pixel_height - 3), $bg3);
+                break;
+            case 2:
+                $split1 = floor($pixel_height * 0.5);
+                $bg1 = imagecolorallocate($im, hexdec(substr($bgcls1,0,2)), hexdec(substr($bgcls1,2,2)), hexdec(substr($bgcls1,4,2)));
+                $bg2 = imagecolorallocate($im, hexdec(substr($bgcls2,0,2)), hexdec(substr($bgcls2,2,2)), hexdec(substr($bgcls2,4,2)));
+                imagefilledrectangle($im, 3, 3, ($pixel_width - 3), $split1, $bg1);
+                imagefilledrectangle($im, 3, ($split1 + 1), ($pixel_width - 3), ($pixel_height - 3), $bg2);
+                break;
+            default:
+                $bg1 = imagecolorallocate($im, hexdec(substr($bgcls1,0,2)), hexdec(substr($bgcls1,2,2)), hexdec(substr($bgcls1,4,2)));
+                imagefilledrectangle($im, 3, 3, ($pixel_width - 3), ($pixel_height - 3), $bg1);
+                break;
+        }
+        
+        // Draw the individual active grid blocks
+        // The inactive blocks do not need to be drawn as the background was
+        // set in the loop above.
+        $back_colour = "6aaa64";
+        $block_on = imagecolorallocate($im, hexdec(substr($back_colour,0,2)), hexdec(substr($back_colour,2,2)), hexdec(substr($back_colour,4,2)));
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                $start_x = 3 + ($x * 25) + 1;
+                $start_y = 3 + ($y * 25) + 1;
+                if ($grid[$x][$y] == 1) {
+                    imagefilledrectangle($im, $start_x, $start_y, ($start_x  + 20), ($start_y + 20), $block_on);
+                }
+            }
+        }
+        
+        // Draw letters onto the image
+        $black = imagecolorallocate($im, 0, 0, 0);
+        for ($y = 0; $y < $height; $y++) {
+            for ($x = 0; $x < $width; $x++) {
+                $start_x = 3 + ($x * 25) + 9;
+                $start_y = 3 + ($y * 25) + 5;
+                if ($grid_word[$x][$y] != "_") {    // No longer need to surpress spaces due to HTML
+                    imagechar($im, 3, $start_x, $start_y, $grid_word[$x][$y], $black);
+                }
+            }
+        }
+
+        // Save the image
+        imagepng($im, $im_dstfile);
+        imagedestroy($im);
     }
 }
