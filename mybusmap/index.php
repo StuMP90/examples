@@ -2,7 +2,6 @@
 require_once __DIR__ . '/config.php';
 require_once __DIR__ . '/inc_api.php';
 ini_set('display_errors', 0);
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -49,7 +48,7 @@ ini_set('display_errors', 0);
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 <script>
 
-    var apiKey = 'ADD_YOUR_MAPS_API_KEY';
+    var apiKey = '<?= $apikey_osmaps ?>';
     var serviceUrl = 'https://api.os.uk/maps/raster/v1/zxy';
     
     var geolat = 52.49750000;

@@ -1,13 +1,20 @@
 <?php
-require_once __DIR__ . '/config.php';
 
-
-function get_remote_data($ds = "")  // Fetch remote data with Curl
+/**
+ * Gets live bus tracking data from the DFT API.
+ *
+ * @param string $ds The bus company key.
+ */
+function get_remote_data(string $ds)  // Fetch remote data with Curl
 {
+    global $apikey_dft;
+    global $dftid_diamond;
+    global $dftid_nxbus;
+    
     if ($ds == "diamond") {
-        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/763/?api_key=ADD_YOUR_API_KEY";
+        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/" . $dftid_diamond . "/?api_key=" . $apikey_dft;
     } elseif ($ds == "nxbus") {
-        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/6583/?api_key=ADD_YOUR_API_KEY";
+        $api_url = "https://data.bus-data.dft.gov.uk/api/v1/datafeed/" . $dftid_nxbus . "/?api_key=" . $apikey_dft;
     } else {
         return false;
     }

@@ -1,4 +1,12 @@
 <?php
+// API's
+$apikey_dft = "";  // DFT Bus Tracking API
+$apikey_osmaps = "";  // OS Maps API
+
+// DFT Bus Feed ID's
+$dftid_diamond = "763";
+$dftid_nxbus = "6583";
+
 // Busses - only the ones we care about
 $bus_arr = array(
     '226' => 'diamond',
