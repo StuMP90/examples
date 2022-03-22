@@ -36,6 +36,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
     }, false);
+    var cheatButton = document.getElementById('cheat');
+    cheatButton.addEventListener('click', function() {
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            var currTab = tabs[0];
+            var id = currTab.id;
+            if (currTab.url == "https://www.nytimes.com/games/wordle/index.html") {
+                if (id) {
+                    setLocalStorage('myNytWordleState', '');
+                    chrome.scripting.executeScript({
+                        target: {tabId: id, allFrames: true},
+                        files: ['content_scripts/cheat.js'],
+                    });
+                }
+            }
+        });
+        
+    }, false);
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         var currTab = tabs[0];
         var id = currTab.id;
