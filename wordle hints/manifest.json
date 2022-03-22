@@ -1,0 +1,17 @@
+{
+    "manifest_version": 3,
+
+    "name": "Wordle Hints Plugin",
+    "description": "This extension will suggest words to solve the puzzle",
+    "version": "1.0",
+
+    "action": {
+        "default_icon": "icon.png",
+        "default_popup": "popup.html"
+    },
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ]
+}
