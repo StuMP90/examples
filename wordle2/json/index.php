@@ -55,7 +55,7 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
     $word_evaluations = explode(",", $safe_evaluations);
 
     // Check if any words have been guessed yet
-    if ((isset($_POST['boardState'])) && (isset($_POST['evaluations'])) && (is_array($used_words)) && (count($used_words) > 0) && (is_array($word_evaluations)) && (count($word_evaluations) > 0)) {
+    if ((isset($_POST['boardState'])) && (isset($_POST['evaluations'])) && ($used_words[0] != "") && (is_array($used_words)) && (count($used_words) > 0) && (is_array($word_evaluations)) && (count($word_evaluations) > 0)) {
 
         $wordcount = 0;
         $chartest_correct = array();    // Due to the sequence of building the query, first build array of required tests
@@ -160,8 +160,8 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
         }
 
         // Dont't send silly long lists
-        if (strlen($safe_wordlist) > 100) {
-            $safe_wordlist = substr($safe_wordlist,0,100) . "...";
+        if (strlen($safe_wordlist) > 1000) {
+            $safe_wordlist = substr($safe_wordlist,0,1000) . "...";
         }
         $words = "Suggestions: " . $safe_wordlist;
     } else {
