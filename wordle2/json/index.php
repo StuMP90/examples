@@ -66,7 +66,7 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
 
             if (($wordkey != "") && (strlen($wordkey) == 5)) {
                 $wordchars = str_split($wordkey,1);
-
+                
                 // Loop through word chars
                 $charcount = 0;
                 foreach ($wordchars as $charkey_key => $charkey) {
@@ -91,6 +91,39 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
                     $charcount++;
                 }
                 $wordcount++;
+            }
+        }
+
+        // Check for a double letter with a yes and a no, e.g.
+        // BUNNY blocking the answer NYMPH, where the second N gives
+        // an N correct (or present) and a N absent - which causes a locking
+        // out in the SQL
+
+        // Loop throught the correct characters to find the valid character
+        if ((is_array($chartest_correct)) && (count($chartest_correct) > 0)) {
+            foreach ($chartest_correct as $key => $val) {
+                if ((is_array($chartest_absent)) && (count($chartest_absent) > 0)) {
+                    foreach ($chartest_absent as $keyr => $valr) {
+                        // If there is an "absent" for the same letter, remove it
+                        if ($val[0] == $valr[0]) {
+                            unset($chartest_absent[$keyr]);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Loop throught the present characters to find the valid character
+        if ((is_array($chartest_present)) && (count($chartest_present) > 0)) {
+            foreach ($chartest_present as $key => $val) {
+                if ((is_array($chartest_absent)) && (count($chartest_absent) > 0)) {
+                    foreach ($chartest_absent as $keyr => $valr) {
+                        // If there is an "absent" for the same letter, remove it
+                        if ($val[0] == $valr[0]) {
+                            unset($chartest_absent[$keyr]);
+                        }
+                    }
+                }
             }
         }
 
@@ -158,7 +191,7 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
         } catch (PDOException $e) {
 
         }
-
+        
         // Dont't send silly long lists
         if (strlen($safe_wordlist) > 1000) {
             $safe_wordlist = substr($safe_wordlist,0,1000) . "...";
