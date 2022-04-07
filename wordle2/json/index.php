@@ -6,6 +6,33 @@ include_once dirname(__DIR__,1) . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__,1));
 $dotenv->load();
 
+
+/**
+ * Checks if the word is in the list of possible answers.
+ *
+ * @param string $word The word to check.
+ * 
+ * @return boolean Is the word a possible answer.
+ */
+function isPossibleAnswer(string $word = "") : bool {
+    $possible = false;
+    if (($word != "") && (strlen($word) > 0)) {
+        try {
+            $dbh = new PDO('mysql:host=localhost;dbname=' . $_ENV['DB_DBSE'], $_ENV['DB_USER'], $_ENV['DB_PASS']);
+            $stmtstr = "SELECT id,word from " . $_ENV['TBL_SRCANS'] . " WHERE word = :word";
+            $stmt = $dbh->prepare($stmtstr);
+            $stmt->bindParam(':word', $word);
+            $stmt->execute();
+            while ($row = $stmt->fetch()) {
+                $possible = true;
+            }
+        } catch (PDOException $e) {
+
+        }
+    }
+    return $possible;
+}
+
 if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
     $words = "CHEATER: ";
     // Answer ID 259 is for Friday 4th March 2022
@@ -181,6 +208,9 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
                 $safe_wordlist = "";
 
                 while ($row = $stmt->fetch()) {
+                    if (isPossibleAnswer($row[0])) {   // Check if word is possible answer
+                        $safe_wordlist .= "*";
+                    }
                     $safe_wordlist .= $row[0] . "\t";
                 }
 
