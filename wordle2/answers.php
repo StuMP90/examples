@@ -40,6 +40,8 @@ $dotenv->load();
     // 86400 seconds in a day
     // So, ID 259 corresponds to 19055 days on timestamp
     // A delta of 18796
+    // 
+    // 2022-04 Delta appears to have been changed by NYT to 18794
     //
     // So, get timestamp for current day, subtract the offset and you have today's ID
     $cur_dy = date("j");
@@ -47,7 +49,7 @@ $dotenv->load();
     $cur_yr = date("Y");
     $cur_ts = mktime(0, 0, 0, $cur_mn, $cur_dy, $cur_yr);
     $cur_dy_num = (int) ($cur_ts / 86400);
-    $cur_dy_wordle = $cur_dy_num - 18796;
+    $cur_dy_wordle = $cur_dy_num - 18794;
     echo "<p>Current Server Date: " . date("Y/m/d",$cur_ts) . "</p>";
     echo "<p>Current Wordle Day Number: " . htmlspecialchars($cur_dy_wordle) . "</p>";
     echo "<hr />";
