@@ -50,7 +50,8 @@ if ((isset($_GET['mode'])) && ($_GET['mode'] == "cheat")) {
     $cur_yr = date("Y");
     $cur_ts = mktime(0, 0, 0, $cur_mn, $cur_dy, $cur_yr);
     $cur_dy_num = (int) ($cur_ts / 86400);
-    $cur_dy_wordle = $cur_dy_num - 18794;
+    //$cur_dy_wordle = $cur_dy_num - 18794;
+    $cur_dy_wordle = $cur_dy_num - 18792;   //Adjust offset
     
     try {
         $dbh = new PDO('mysql:host=localhost;dbname=' . $_ENV['DB_DBSE'], $_ENV['DB_USER'], $_ENV['DB_PASS']);

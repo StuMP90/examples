@@ -49,7 +49,8 @@ $dotenv->load();
     $cur_yr = date("Y");
     $cur_ts = mktime(0, 0, 0, $cur_mn, $cur_dy, $cur_yr);
     $cur_dy_num = (int) ($cur_ts / 86400);
-    $cur_dy_wordle = $cur_dy_num - 18794;
+    //$cur_dy_wordle = $cur_dy_num - 18794;
+    $cur_dy_wordle = $cur_dy_num - 18792; //Offset change
     echo "<p>Current Server Date: " . date("Y/m/d",$cur_ts) . "</p>";
     echo "<p>Current Wordle Day Number: " . htmlspecialchars($cur_dy_wordle) . "</p>";
     echo "<hr />";
@@ -66,7 +67,7 @@ $dotenv->load();
         $stmt->bindParam(':wxnd', $wordle_max);
         $stmt->execute();
         while ($row = $stmt->fetch()) {
-            $human_ts = ($row[0] + 18796) * 86400;
+            $human_ts = ($row[0] + 18793) * 86400;
             
             echo "<p>" . (($cur_dy_wordle == $row[0]) ? "<strong>" : "") . date("l jS F Y",$human_ts) . " : " . $row[1] . (($cur_dy_wordle == $row[0]) ? "</strong>" : "") . "</p>";
         }
